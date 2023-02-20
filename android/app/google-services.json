@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "3308626003",
+    "project_id": "friendsfusion-93f8f",
+    "storage_bucket": "friendsfusion-93f8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3308626003:android:c6f73eb17aa92347b566a6",
+        "android_client_info": {
+          "package_name": "com.friendfusion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3308626003-e66gc0s3ikjon43tighlqo78i61m3avr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.friendfusion",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "3308626003-3p6urkm2oj5dli3t8gohjh13m5a220q9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdW0dlRIAOTYcHgyANir4b1Duv8mfR1Fg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3308626003-3p6urkm2oj5dli3t8gohjh13m5a220q9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "3308626003-8jsfu7h9fbg7rurcgqejp1nog4b1ujr5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.FriendFusion"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
