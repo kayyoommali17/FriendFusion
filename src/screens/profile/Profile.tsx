@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   editstyle: {
-    top: vh(270),
+    top: vh(235),
     right: vw(110),
     position: 'absolute',
     padding: normalize(10),

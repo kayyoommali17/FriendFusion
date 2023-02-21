@@ -6,15 +6,18 @@ import CustomButton from '../custom/CustomButton';
 import HeaderNavigation from '../custom/HeaderNav';
 import TouchableImage from '../custom/TouchableImage';
 import {vh, normalize, vw} from '../utils/dimensions';
+import {firebase} from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 import CustomTextInput from '../custom/CustomTextInput';
 import {Alert, StyleSheet, Text, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+
 import {
-  validateConfirmPassword,
-  validateEmail,
   validateName,
+  validateEmail,
   validatePassword,
   validatePhoneNumber,
+  validateConfirmPassword,
 } from '../utils/commonFunction';
 
 interface State {
@@ -116,9 +119,36 @@ const SignUp = () => {
     } else if (state.password !== state.confirmPass) {
       Alert.alert('password not matched');
     } else {
-      Alert.alert('Register Succesfully');
+      ProfileSetUp();
     }
   };
+
+  /**
+   * @SignUpRequest Function
+   * @description  signUp user to firebase
+   */
+  const ProfileSetUp = async () => {
+    try {
+      let profileImg = '';
+      let uid = firebase.auth()?.currentUser?.uid;
+      await database()
+        .ref('/users/' + uid)
+        .set({
+          uid: uid,
+          name: state.name,
+          email: state.email,
+          profileImg: profileImg,
+        })
+        .then(res => {
+          // Alert.alert('Register Succesfully');
+          console.log('response at signup', res);
+          console.log('Data set succesfully');
+        });
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <View style={styles.mainContainerStyle}>
       <HeaderNavigation screenText={languages.signUp} />
@@ -205,7 +235,7 @@ const SignUp = () => {
             {state.confirmPassError ? state.confirmPassError : ''}
           </Text>
           <CustomButton
-            buttonText="Submit"
+            buttonText="Update Profile"
             onPress={_onPressSignUp}
             customButtonStyle={styles.submitButtonStyle}
           />

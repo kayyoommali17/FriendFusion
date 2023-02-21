@@ -53,7 +53,6 @@
 //         case 3:
 //           input3Ref.current.focus();
 //           // console.log(input3Ref.current.focus());
-
 //           break;
 //         default:
 //           break;
@@ -120,14 +119,19 @@ const OTPScreen = ({route}: any) => {
   const navigation = useNavigation<any>();
   const [verificationCode, setVerificationCode] = useState<string>('');
   const otpResult = route?.params?.confirmResult;
-  console.log('otp', otpResult);
+  console.log('otp>>>', otpResult);
   const handleOTPVerification = async () => {
     try {
       const resp = await otpResult?.confirm(verificationCode);
       // The phone number is now verified, navigate to the home screen or the next screen in your app
-      console.log('otp', resp?.user?.uid);
+      console.log('otp', resp);
+      let isNewUser = resp?.additionalUserInfo?.isNewUser;
       dispatch({type: 'UserId', payload: resp?.user?.uid});
-      navigation.navigate(routesNames.topTaps);
+      if (isNewUser === false) {
+        navigation.navigate(routesNames.topTaps);
+      } else {
+        navigation.navigate(routesNames.profile);
+      }
     } catch (error) {
       console.log(error);
       setError('wrong otp!');

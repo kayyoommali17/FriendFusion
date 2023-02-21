@@ -1,5 +1,6 @@
 import colors from '../utils/colors';
 import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import languages from '../utils/languages';
 import {regexPhoneNo} from '../utils/constant';
 import auth from '@react-native-firebase/auth';
@@ -10,9 +11,8 @@ import {normalize, vh, vw} from '../utils/dimensions';
 import TouchableImage from '../custom/TouchableImage';
 import {useNavigation} from '@react-navigation/native';
 import CustomTextInput from '../custom/CustomTextInput';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useDispatch} from 'react-redux';
 
 const Login = () => {
   const dispatch = useDispatch<any>();
@@ -173,6 +173,8 @@ const styles = StyleSheet.create({
   },
   customInputStyle: {
     marginTop: vh(30),
+    marginHorizontal: vw(0),
+    paddingHorizontal: vw(10),
     borderRadius: normalize(10),
   },
   checkUncheckStyle: {

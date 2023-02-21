@@ -1,149 +1,339 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+// first one otp component
 
-interface State {
-  name: string;
-  email: string;
-  password: string;
-  nameError: string;
-  phoneError: string;
-  emailError: string;
-  phoneNumber: string;
-  confirmPass: string;
-  passwordError: string;
-}
+// import React, {useState, useRef} from 'react';
 
-const initialState: State = {
-  name: '',
-  email: '',
-  password: '',
-  nameError: '',
-  phoneError: '',
-  emailError: '',
-  phoneNumber: '',
-  confirmPass: '',
-  passwordError: '',
-};
+// import {View, TextInput, Text} from 'react-native';
 
-const regexName = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
-const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-const regexPhoneNo = /^\(?([1-9]{1})\)?[-. ]?([0-9]{5})[-. ]?([0-9]{4})$/;
-const regexPassword =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+// const OtpInput = () => {
+//   const [otp, setOtp] = useState('');
+//   const textInputRefs: any = [
+//     useRef(null),
+//     useRef(null),
+//     useRef(null),
+//     useRef(null),
+//   ];
 
-const MyForm = () => {
-  const [state, setState] = useState(initialState);
+//   const handleOtpChange = (index, value) => {
+//     const newOtp = [...otp];
+//     newOtp[index] = value;
+//     // if (otp.length === 4) {
+//     //   textInputRefs[3].current.focus();
+//     // }
+//     if (value && index < textInputRefs.length - 1) {
+//       textInputRefs[index + 1].current.focus();
+//     }
 
-  const validateName = (name: string) => {
-    if (name.length < 3) {
-      setState({
-        ...state,
-        name,
-        nameError: regexEmail.test(name)
-          ? ''
-          : 'Name must be at least 3 letters',
-      });
-    } else {
-      setState({...state, name, nameError: ''});
-    }
-  };
+//     setOtp(newOtp);
+//   };
 
-  const handleEmailChange = (email: string) => {
-    setState({
-      ...state,
-      email,
-      emailError: regexEmail.test(email) ? '' : 'Invalid email',
-    });
-  };
+//   const handleOtpKeyPress = (index, key) => {
+//     if (key === 'Backspace' && !otp[index] && index > 0) {
+//       textInputRefs[index - 1].current.focus();
+//     }
+//   };
 
-  const handlePhoneChange = (phoneNumber: string) => {
-    setState({
-      ...state,
-      phoneNumber,
-      phoneError: regexPhoneNo.test(phoneNumber) ? '' : 'Invalid phone number',
-    });
-  };
+//   const handleOnPaste = e => {
+//     const pastedData = e.nativeEvent.clipboardData.getData('text');
+//     const otpArray = pastedData.split('').slice(0, 4);
+//     const newOtp = [...otp];
+//     otpArray.forEach((value, index) => {
+//       newOtp[index] = value;
+//       if (index < textInputRefs.length - 1) {
+//         textInputRefs[index + 1].current.focus();
+//       }
+//     });
 
-  const handlePasswordChange = (password: string) => {
-    setState({
-      ...state,
-      password,
-      passwordError: regexPassword.test(password)
-        ? ''
-        : 'Invalid password, must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, one number and one special character',
-    });
-  };
+//     setOtp(newOtp);
+//   };
 
-  const handleConfirmPassChange = (confirmPass: string) => {
-    setState({
-      ...state,
-      confirmPass,
-      passwordError: password === confirmPass ? '' : 'Passwords do not match',
-    });
-  };
+//   return (
+//     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+//       <Text>{JSON.stringify(otp.length)}</Text>
+//       <View style={{flexDirection: 'row'}}>
+//         {[0, 1, 2, 3].map(i => (
+//           <View key={i} style={{marginHorizontal: 8, marginTop: 50}}>
+//             <TextInput
+//               ref={textInputRefs[i]}
+//               style={{
+//                 borderWidth: 1,
+//                 width: 40,
+//                 height: 40,
+//                 borderRadius: 4,
+//                 fontSize: 20,
+//                 textAlign: 'center',
+//               }}
+//               keyboardType="number-pad"
+//               maxLength={1}
+//               value={otp[i]}
+//               onChangeText={value => handleOtpChange(i, value)}
+//               onKeyPress={({nativeEvent}) =>
+//                 handleOtpKeyPress(i, nativeEvent.key)
+//               }
+//               // onPaste={(e) => handleOnPaste(e)}
+//               // onpast
+//             />
+//           </View>
+//         ))}
+//       </View>
+//     </View>
+//   );
+// };
 
-  //   const handleSubmit = () => {
-  //     console.log('Form submitted!');
-  //   };
+// export default OtpInput;
 
-  return (
-    <View style={styles.container}>
-      <Text>Name</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={validateName}
-        value={state.name}
-      />
-      {state.nameError ? (
-        <Text style={styles.error}>{state.nameError}</Text>
-      ) : null}
+//
 
-      <Text>Email</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={handleEmailChange}
-        value={state.email}
-      />
-      {state.emailError ? (
-        <Text style={styles.error}>{state.emailError}</Text>
-      ) : null}
+//second loader one
 
-      <Text>Phone Number</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={handlePhoneChange}
-        value={state.phoneNumber}
-      />
-      {state.phoneError ? (
-        <Text style={styles.error}>{state.phoneError}</Text>
-      ) : null}
+// import React, {useEffect, useState} from 'react';
+// import {View, StyleSheet, Animated} from 'react-native';
 
-      {/* <Text>Password</Text>
-      <TextInput
-        style={styles.input} */}
-    </View>
-  );
-};
+// const SmoothLoader = () => {
+//   const [animation] = useState(new Animated.Value(0));
 
-export default MyForm;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    width: '80%',
-    height: 50,
-    borderWidth: 1,
-  },
-  error: {
-    color: 'red',
-  },
-});
+//   useEffect(() => {
+//     Animated.loop(
+//       Animated.timing(animation, {
+//         toValue: 1,
+//         duration: 1500,
+//         useNativeDriver: true,
+//       }),
+//     ).start();
+//   }, [animation]);
+
+//   const opacity = animation.interpolate({
+//     inputRange: [0, 0.5, 1],
+//     outputRange: [1, 0.5, 1],
+//   });
+
+//   const scale = animation.interpolate({
+//     inputRange: [0, 0.5, 1],
+//     outputRange: [1, 1.5, 1],
+//   });
+
+//   const borderRadius = animation.interpolate({
+//     inputRange: [0, 0.5, 1],
+//     outputRange: [20, 5, 20],
+//   });
+
+//   return (
+//     <View style={styles.container}>
+//       <Animated.View
+//         style={[styles.circle, {opacity, transform: [{scale}], borderRadius}]}
+//       />
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   circle: {
+//     width: 50,
+//     height: 50,
+//     backgroundColor: '#FF6B6B',
+//   },
+// });
+
+// export default SmoothLoader;
+
+// thrid loader one
+
+// import React, {useState, useEffect} from 'react';
+// import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+
+// const CustomLoader = () => {
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   useEffect(() => {
+//     let interval;
+//     if (isLoading) {
+//       interval = setInterval(() => {
+//         setLoaderIndex(loaderIndex =>
+//           loaderIndex === 3 ? 0 : loaderIndex + 1,
+//         );
+//       }, 300);
+//     } else {
+//       clearInterval(interval);
+//       setLoaderIndex(0);
+//     }
+
+//     return () => clearInterval(interval);
+//   }, [isLoading]);
+
+//   const [loaderIndex, setLoaderIndex] = useState(0);
+
+//   const handlePress = () => {
+//     setIsLoading(true);
+
+//     // You can add your login API call here
+
+//     setTimeout(() => {
+//       setIsLoading(false);
+//     }, 3000);
+//   };
+
+//   return (
+//     <View style={styles.container}>
+//       <TouchableOpacity
+//         style={styles.button}
+//         onPress={handlePress}
+//         disabled={isLoading}>
+//         <View style={styles.buttonWrapper}>
+//           {isLoading && (
+//             <View style={[styles.loader, styles[`loader_${loaderIndex}`]]} />
+//           )}
+//           <Text style={styles.buttonText}>
+//             {isLoading ? 'Logging in...' : 'Log In'}
+//           </Text>
+//         </View>
+//       </TouchableOpacity>
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   button: {
+//     backgroundColor: '#2F80ED',
+//     borderRadius: 8,
+//     padding: 16,
+//     minWidth: 200,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   buttonWrapper: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//   },
+//   buttonText: {
+//     color: '#ffffff',
+//     fontWeight: 'bold',
+//     fontSize: 16,
+//     marginLeft: 8,
+//   },
+//   loader: {
+//     width: 4,
+//     height: 4,
+//     borderRadius: 2,
+//     marginHorizontal: 4,
+//   },
+//   loader_0: {
+//     backgroundColor: '#FFFFFF',
+//   },
+//   loader_1: {
+//     backgroundColor: '#F2C94C',
+//   },
+//   loader_2: {
+//     backgroundColor: '#219653',
+//   },
+//   loader_3: {
+//     backgroundColor: '#EB5757',
+//   },
+// });
+
+// export default CustomLoader;
+
+// fourth loader with login button
+
+// import React, {useState} from 'react';
+// import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+
+// const CustomLoader = () => {
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [animation] = useState(new Animated.Value(0));
+
+//   const handlePress = () => {
+//     setIsLoading(true);
+
+//     // You can add your login API call here
+
+//     setTimeout(() => {
+//       setIsLoading(false);
+//     }, 3000);
+//   };
+
+//   const backgroundLineStyle = {
+//     width: 200,
+//     height: 1,
+//     backgroundColor: '#E5E5E5',
+//     position: 'absolute',
+//     bottom: '50%',
+//   };
+
+//   const foregroundLineStyle = {
+//     width: 100,
+//     height: 1,
+//     backgroundColor: '#000000',
+//     position: 'absolute',
+//     bottom: '50%',
+//     transform: [
+//       {
+//         translateX: animation.interpolate({
+//           inputRange: [0, 1],
+//           outputRange: [0, 100],
+//         }),
+//       },
+//     ],
+//   };
+
+//   if (isLoading) {
+//     Animated.loop(
+//       Animated.timing(animation, {
+//         toValue: 1,
+//         duration: 1000,
+//         useNativeDriver: true,
+//       }),
+//     ).start();
+//   } else {
+//     animation.stopAnimation();
+//   }
+
+//   return (
+//     <View style={styles.container}>
+//       <View style={backgroundLineStyle} />
+//       <Animated.View style={foregroundLineStyle} />
+//       <TouchableOpacity
+//         style={styles.button}
+//         onPress={handlePress}
+//         disabled={isLoading}>
+//         <Text style={styles.buttonText}>
+//           {isLoading ? 'Logging in...' : 'Log In'}
+//         </Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   button: {
+//     backgroundColor: '#2F80ED',
+//     borderRadius: 8,
+//     padding: 16,
+//     minWidth: 200,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     marginTop: 300,
+//   },
+//   buttonText: {
+//     color: '#ffffff',
+//     fontWeight: 'bold',
+//     fontSize: 16,
+//   },
+// });
+
+// export default CustomLoader;
+
+// fifth loader
