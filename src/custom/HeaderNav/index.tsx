@@ -1,10 +1,16 @@
 import React from 'react';
 import colors from '../../utils/colors';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import localeImage from '../../utils/localeImages';
 import {normalize, vh, vw} from '../../utils/dimensions';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import localeImage from '../../utils/localeImages';
-import {useNavigation} from '@react-navigation/native';
+import {
+  Text,
+  View,
+  Image,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 
 interface Props {
   onPress?: any;
@@ -19,12 +25,11 @@ const HeaderNavigation = (props: Props) => {
       style={[
         styles.mainViewStyle,
         {
-          paddingTop: normalize(insets.top + 5),
+          paddingTop:
+            Platform.OS === 'ios' ? normalize(insets.top + 5) : normalize(18),
           backgroundColor: props?.backgroundColor || colors.purple,
         },
       ]}>
-      {/* <BackButton onPress={props.onPress} />
-       */}
       <TouchableOpacity
         activeOpacity={0.7}
         hitSlop={{top: 0, right: 0, left: 0, bottom: 0}}

@@ -1,47 +1,62 @@
-import React, {useRef, useState} from 'react';
 import colors from '../../utils/colors';
 import languages from '../../utils/languages';
+import React, {useRef} from 'react';
 import localeImage from '../../utils/localeImages';
 import HeaderNavigation from '../../custom/HeaderNav';
 import {normalize, vh, vw} from '../../utils/dimensions';
 import TouchableImage from '../../custom/TouchableImage';
+import ImagePicker from 'react-native-image-crop-picker';
 import CustomTextInput from '../../custom/CustomTextInput';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-
 const Profile = () => {
   const textInputRef1 = useRef<any>(null);
   const textInputRef2 = useRef<any>(null);
-  const [nameEdit, setNameEdit] = useState(false);
-  const [aboutEdit, setAboutEdit] = useState(false);
+  const [image, setImage] = React.useState<any>(null);
+
+  console.log('image', image);
 
   const handleEditNameClick = () => {
     textInputRef1.current.focus();
-    setNameEdit(!nameEdit);
   };
 
   const handleEditAboutClick = () => {
     textInputRef2.current.focus();
-    setAboutEdit(!aboutEdit);
+  };
+
+  const _onPressImagePick = () => {
+    ImagePicker.openPicker({
+      width: vw(200),
+      height: vw(200),
+      cropping: true,
+    }).then(image => {
+      setImage(image.path);
+      // props.onChange?.(image);
+    });
   };
 
   return (
     <View style={styles.mainContainerStyle}>
       <HeaderNavigation screenText={languages.profile} />
-      <TouchableImage
-        source={localeImage.camera}
-        touchableStyle={styles.profileStyle}
-        imageStyle={styles.profileImagesStyle}
-      />
-      <TouchableImage
-        source={localeImage.pencil}
-        touchableStyle={styles.editstyle}
-        imageStyle={styles.editImageStyle}
-      />
-
+      {image === null ? (
+        <TouchableImage
+          onPress={_onPressImagePick}
+          source={localeImage.camera}
+          touchableStyle={styles.profileStyle}
+          imageStyle={styles.profileImagesStyle}
+        />
+      ) : (
+        <TouchableImage
+          onPress={_onPressImagePick}
+          source={{uri: image}}
+          touchableStyle={[
+            styles.profileStyle,
+            {borderColor: colors.darkGreen},
+          ]}
+          imageStyle={styles.profileImagesStyle}
+        />
+      )}
       <CustomTextInput
         ref={textInputRef1}
-        // onFocus={handleFocus}
-        editable={nameEdit}
         placeholder="Full Name"
         rightIcon={localeImage.pencil}
         leftIcon={localeImage.userProfile}
@@ -54,16 +69,15 @@ const Profile = () => {
       <CustomTextInput
         placeholder="About"
         ref={textInputRef2}
-        editable={aboutEdit}
         leftIcon={localeImage.info}
         rightIcon={localeImage.pencil}
-        rightIconOnPress={handleEditAboutClick}
         TextInputstyle={styles.textInputStyle}
-        rightIconStyle={{tintColor: colors.purple}}
+        rightIconOnPress={handleEditAboutClick}
         mainViewStyle={styles.textInputViewStyle}
+        rightIconStyle={{tintColor: colors.purple}}
         leftIconStyle={{tintColor: colors.dark_grey}}
       />
-      <TouchableOpacity style={styles.phoneViewStyle}>
+      <TouchableOpacity activeOpacity={0.7} style={styles.phoneViewStyle}>
         <Image source={localeImage.call} style={styles.phoneImageStyle} />
         <View style={styles.phoneIconstyle}>
           <Text style={styles.phoneTextStyle}>{'Phone'}</Text>
@@ -82,23 +96,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   profileStyle: {
+    borderWidth: 2,
     marginTop: vh(10),
     alignSelf: 'center',
+    borderColor: colors.black,
     borderRadius: normalize(100),
     backgroundColor: colors.grey,
   },
   profileImagesStyle: {
     width: vw(200),
     height: vw(200),
-    resizeMode: 'contain',
-  },
-  editstyle: {
-    top: vh(235),
-    right: vw(110),
-    position: 'absolute',
-    padding: normalize(10),
-    borderRadius: normalize(50),
-    backgroundColor: colors.purple,
+    resizeMode: 'cover',
+    borderRadius: vw(100),
   },
   editImageStyle: {
     height: vw(20),

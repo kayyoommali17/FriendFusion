@@ -5,7 +5,10 @@
 // import {View, TextInput, Text} from 'react-native';
 
 // const OtpInput = () => {
-//   const [otp, setOtp] = useState('');
+//   const [otp, setOtp] = useState<any>('');
+//   // const otpString = otp.join('');
+//   // const otpNumber = parseInt(otpString);
+
 //   const textInputRefs: any = [
 //     useRef(null),
 //     useRef(null),
@@ -13,12 +16,9 @@
 //     useRef(null),
 //   ];
 
-//   const handleOtpChange = (index, value) => {
+//   const handleOtpChange = (index: number, value: any) => {
 //     const newOtp = [...otp];
 //     newOtp[index] = value;
-//     // if (otp.length === 4) {
-//     //   textInputRefs[3].current.focus();
-//     // }
 //     if (value && index < textInputRefs.length - 1) {
 //       textInputRefs[index + 1].current.focus();
 //     }
@@ -26,17 +26,17 @@
 //     setOtp(newOtp);
 //   };
 
-//   const handleOtpKeyPress = (index, key) => {
+//   const handleOtpKeyPress = (index: number, key: any) => {
 //     if (key === 'Backspace' && !otp[index] && index > 0) {
 //       textInputRefs[index - 1].current.focus();
 //     }
 //   };
 
-//   const handleOnPaste = e => {
+//   const handleOnPaste = (e: any) => {
 //     const pastedData = e.nativeEvent.clipboardData.getData('text');
 //     const otpArray = pastedData.split('').slice(0, 4);
 //     const newOtp = [...otp];
-//     otpArray.forEach((value, index) => {
+//     otpArray.forEach((value: any, index: any) => {
 //       newOtp[index] = value;
 //       if (index < textInputRefs.length - 1) {
 //         textInputRefs[index + 1].current.focus();
@@ -48,7 +48,7 @@
 
 //   return (
 //     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-//       <Text>{JSON.stringify(otp.length)}</Text>
+//       {/* <Text>{otpString}</Text> */}
 //       <View style={{flexDirection: 'row'}}>
 //         {[0, 1, 2, 3].map(i => (
 //           <View key={i} style={{marginHorizontal: 8, marginTop: 50}}>
@@ -64,13 +64,16 @@
 //               }}
 //               keyboardType="number-pad"
 //               maxLength={1}
+//               multiline={false}
 //               value={otp[i]}
-//               onChangeText={value => handleOtpChange(i, value)}
+//               autoCorrect={false}
+//               selection={{start: 1, end: 1}}
+//               onChangeText={value => {
+//                 handleOtpChange(i, value);
+//               }}
 //               onKeyPress={({nativeEvent}) =>
 //                 handleOtpKeyPress(i, nativeEvent.key)
 //               }
-//               // onPaste={(e) => handleOnPaste(e)}
-//               // onpast
 //             />
 //           </View>
 //         ))}
