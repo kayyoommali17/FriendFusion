@@ -283,9 +283,9 @@ const styles = StyleSheet.create({
     tintColor: colors.dark_grey,
   },
   textInputViewStyle: {
-    borderWidth: 0,
+    borderWidth: 1,
     marginTop: vh(10),
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     marginHorizontal: vw(30),
     borderBottomColor: colors.dark_grey,
   },

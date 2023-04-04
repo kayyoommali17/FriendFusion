@@ -7,6 +7,9 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Profile from './src/screens/profile/Profile';
 import Test from './src/test/test2';
 import SubscribeButton from './src/test/test3';
+import SignUp from './src/auth/SignUp';
+import ProductS from './src/test/Product';
+import MainListing from './src/products';
 
 const App = () => {
   return (
@@ -18,9 +21,11 @@ const App = () => {
         </PersistGate>
       </Provider> */}
       {/* <SafeAreaProvider>
-        <Profile />
-      </SafeAreaProvider> */}
-      <SubscribeButton />
+        <Profile /> */}
+      {/* <SignUp /> */}
+      {/* </SafeAreaProvider> */}
+      {/* <SubscribeButton /> */}
+      <ProductS />
     </>
   );
 };
